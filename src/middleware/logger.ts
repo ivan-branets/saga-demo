@@ -1,0 +1,13 @@
+import { Action, Middleware, MiddlewareAPI } from 'redux';
+import { IAppState } from '../store/store';
+
+const logger: Middleware = (store: MiddlewareAPI) => (next: (action: Action) => IAppState) => (action: Action) => {
+  console.group(action.type);
+  console.info('dispatching', action);
+  let result = next(action);
+  console.log('next state', store.getState());
+  console.groupEnd();
+  return result;
+}
+
+export default logger;
