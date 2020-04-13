@@ -1,3 +1,5 @@
+// tslint:disable: no-console
+
 import { Action, Middleware, MiddlewareAPI } from 'redux';
 import { IAppState } from '../store/store';
 
