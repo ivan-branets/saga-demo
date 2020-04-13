@@ -9,12 +9,9 @@ export interface IAppState {
 const initialState: IAppState = {
 };
 
-export function configureStore() {
-  const middlewareEnhancer = applyMiddleware(logger);
-  const composedEnhancers = compose(middlewareEnhancer, monitorReducer) as StoreEnhancer;
+const middlewareEnhancer = applyMiddleware(logger);
+const composedEnhancers = compose(middlewareEnhancer, monitorReducer) as StoreEnhancer;
 
-  const rootReducer = compose();
+const rootReducer = compose();
 
-  const store = createStore(rootReducer, initialState, composedEnhancers);
-  return store;
-}
+export const store = createStore(rootReducer, initialState, composedEnhancers);
