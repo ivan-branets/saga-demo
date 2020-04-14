@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
+import { Button } from 'react-bootstrap';
 
 import './App.scss';
 
@@ -17,7 +18,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          <Button>Learn React</Button>
         </a>
       </header>
     </div>
