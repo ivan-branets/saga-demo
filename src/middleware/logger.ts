@@ -5,7 +5,7 @@ import { IAppState } from '../store/store';
 
 const logger: Middleware =
   (store: MiddlewareAPI) =>
-    (next: (action: Action) =>
+    (next: (action: any) =>
       IAppState) =>
       (action: Action) => {
         console.group(action.type);

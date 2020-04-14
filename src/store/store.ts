@@ -1,17 +1,26 @@
-import { applyMiddleware, compose, createStore, StoreEnhancer } from 'redux';
+import { applyMiddleware, compose, createStore, StoreEnhancer, combineReducers, Store } from 'redux';
 
 import monitorReducer from '../enhancers/monitorReducer';
 import logger from '../middleware/logger';
+import { ITicksState, ticksReducer } from '../reducers/ticks';
 
 export interface IAppState {
+  ticks: ITicksState
 }
-
-const initialState: IAppState = {
-};
 
 const middlewareEnhancer = applyMiddleware(logger);
 const composedEnhancers = compose(middlewareEnhancer, monitorReducer) as StoreEnhancer;
 
-const rootReducer = compose();
+export interface IAppState {
+  ticks: ITicksState
+}
 
-export const store = createStore(rootReducer, initialState, composedEnhancers);
+const rootReducer = combineReducers<IAppState>({
+  ticks: ticksReducer
+});
+
+export function configureStore(): Store<IAppState, any> {
+  const store = createStore(rootReducer, undefined, composedEnhancers);
+  return store;
+}
+
