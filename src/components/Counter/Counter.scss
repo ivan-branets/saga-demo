@@ -1,3 +1,11 @@
 .counter {
   height: 100vh;
+
+  .form-control:disabled, .form-control[readonly] {
+    background-color: white;
+  }
+
+  .btn-outline-secondary:focus {
+    box-shadow: none;
+  }
 }

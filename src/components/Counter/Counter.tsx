@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { FunctionComponent, useState } from 'react';
+import { connect } from 'react-redux';
 import { Container } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
 import { IAppState } from '../../store';
 import * as tickActions from '../../actions/tickActions';
-import { connect } from 'react-redux';
 
 import './Counter.scss';
+
+enum PlayButtonTypes {
+  PLAY = 'PLAY',
+  STOP = 'STOP'
+}
 
 interface IStateProps {
   count: number;
@@ -18,21 +25,39 @@ interface IDispatchProps {
 
 type IProps = IStateProps & IDispatchProps;
 
-function Counter({ count, tick, start, stop }: IProps) {
+const Counter: FunctionComponent<IProps> = ({ count, tick, start, stop }: IProps) => {
+  const [playButtonType, setPlayButtonType] = useState(PlayButtonTypes.PLAY);
+
   return <Container className="counter d-flex align-items-center justify-content-center p-4">
     <div className="input-group w-25">
       <input type="text" className="form-control" value={count} readOnly />
       <div className="input-group-append">
-        <button className="btn btn-outline-secondary" onClick={() => tick()}>+</button>
+        <button className="btn btn-outline-secondary" onClick={() => tick()}>
+          <FontAwesomeIcon
+            icon={faPlus}
+          />
+        </button>
       </div>
       <div className="input-group-append">
-        <button className="btn btn-outline-secondary" onClick={() => start()}>Start</button>
-      </div>
-      <div className="input-group-append">
-        <button className="btn btn-outline-secondary" onClick={() => stop()}>Stop</button>
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => {
+            if (playButtonType === PlayButtonTypes.PLAY) {
+              start();
+              setPlayButtonType(PlayButtonTypes.STOP);
+            } else {
+              stop();
+              setPlayButtonType(PlayButtonTypes.PLAY);
+            }
+          }}
+        >
+          <FontAwesomeIcon
+            icon={playButtonType === PlayButtonTypes.PLAY ? faPlay : faStop}
+          />
+        </button>
       </div>
     </div>
-  </Container>
+  </Container>;
 }
 
 const mapStateToProps = (store: IAppState): IStateProps => ({
