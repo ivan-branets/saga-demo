@@ -24,7 +24,7 @@ function* stopSaga() {
   }
 }
 
-export function* watchNodeSaga() {
+export function* watchTickSaga() {
   yield all([
     takeEvery(TickActionTypes.START, startSaga),
     takeEvery(TickActionTypes.STOP, stopSaga),

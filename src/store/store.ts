@@ -6,11 +6,6 @@ import logger from '../middleware/logger';
 import { ITicksState, ticksReducer } from '../reducers/ticks';
 import rootSaga from '../sagas/rootSaga';
 
-const sagaMiddleware = createSagaMiddleware();
-
-const middlewareEnhancer = applyMiddleware(logger, sagaMiddleware);
-const composedEnhancers = compose(middlewareEnhancer, monitorReducer) as StoreEnhancer;
-
 export interface IAppState {
   ticks: ITicksState
 }
@@ -18,6 +13,11 @@ export interface IAppState {
 const rootReducer = combineReducers<IAppState>({
   ticks: ticksReducer
 });
+
+const sagaMiddleware = createSagaMiddleware();
+
+const middlewareEnhancer = applyMiddleware(logger, sagaMiddleware);
+const composedEnhancers = compose(middlewareEnhancer, monitorReducer) as StoreEnhancer;
 
 export function configureStore(): Store<IAppState, any> {
   const store = createStore(rootReducer, undefined, composedEnhancers);

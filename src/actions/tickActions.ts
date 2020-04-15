@@ -19,7 +19,8 @@ export interface IStopAction {
   payload: {}
 }
 
-export type TickActions = ITickAction | IStartAction | IStopAction;
+export type TickActions =
+  ITickAction | IStartAction | IStopAction;
 
 export const tick = (): ITickAction => ({
   type: TickActionTypes.TICK,
@@ -35,3 +36,4 @@ export const stop = (): IStopAction => ({
   type: TickActionTypes.STOP,
   payload: {}
 })
+
