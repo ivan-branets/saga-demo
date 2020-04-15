@@ -1,17 +1,19 @@
 import { applyMiddleware, compose, createStore, StoreEnhancer, combineReducers, Store } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-
 import monitorReducer from '../enhancers/monitorReducer';
 import logger from '../middleware/logger';
 import { ITicksState, ticksReducer } from '../reducers/ticks';
 import rootSaga from '../sagas/rootSaga';
+import { IGalleryState, galleryReducer } from '../reducers/gallery';
 
 export interface IAppState {
-  ticks: ITicksState
+  ticks: ITicksState,
+  gallery: IGalleryState
 }
 
 const rootReducer = combineReducers<IAppState>({
-  ticks: ticksReducer
+  ticks: ticksReducer,
+  gallery: galleryReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

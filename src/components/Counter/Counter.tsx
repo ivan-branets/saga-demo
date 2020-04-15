@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,7 +25,7 @@ interface IDispatchProps {
 
 type IProps = IStateProps & IDispatchProps;
 
-const Counter: FunctionComponent<IProps> = ({ count, tick, start, stop }: IProps) => {
+function Counter({ count, tick, start, stop }: IProps) {
   const [playButtonType, setPlayButtonType] = useState(PlayButtonTypes.PLAY);
 
   return <Container className="counter d-flex align-items-center justify-content-center p-4">
